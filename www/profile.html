@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Inspira - Profile</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <!-- Include your app icon -->
+  <link rel="icon" type="image/png" href="assets/app_icon.png">
+</head>
+<body>
+  <div class="page-container">
+    <!-- Application icon -->
+    <div class="app-icon">
+      <img src="assets/app_icon.png" alt="App Icon">
+    </div>
+    <h1>Profile Settings</h1>
+    
+    <!-- Profile view section -->
+    <div id="profileView">
+      <div class="profile-info">
+        <label><strong>Name:</strong></label>
+        <span id="profileName">John Doe</span>
+      </div>
+      <div class="profile-info">
+        <label><strong>Username:</strong></label>
+        <span id="profileUsername">johndoe</span>
+      </div>
+      <div class="profile-info">
+        <label><strong>Birthday:</strong></label>
+        <span id="profileBirthday">2000-01-01</span>
+      </div>
+      <div class="profile-info">
+        <label><strong>Bio:</strong></label>
+        <p id="profileBio">Passionate about nature and photography.</p>
+      </div>
+      <button id="editProfileButton" class="button">Edit Profile</button>
+    </div>
+    
+    <!-- Profile edit section (initially hidden) -->
+    <div id="profileEdit" style="display: none;">
+      <form id="profileForm" class="profile-form">
+        <div class="form-group">
+          <label for="editName">Name:</label>
+          <input type="text" id="editName" name="editName" required>
+        </div>
+        <div class="form-group">
+          <label for="editUsername">Username:</label>
+          <input type="text" id="editUsername" name="editUsername" required>
+        </div>
+        <div class="form-group">
+          <label for="editBirthday">Birthday:</label>
+          <input type="date" id="editBirthday" name="editBirthday" required>
+        </div>
+        <div class="form-group">
+          <label for="editBio">Bio:</label>
+          <textarea id="editBio" name="editBio" rows="4" placeholder="Enter bio..."></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="button">Save</button>
+          <button type="button" id="cancelEditButton" class="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Back button -->
+    <button class="back-button" onclick="window.history.back();">Back</button>
+    
+    <!-- Footer section -->
+    <footer>
+      <p>&copy; 2024 Inspira. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- JavaScript for toggling view and edit modes -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get elements
+      var profileView = document.getElementById('profileView');
+      var profileEdit = document.getElementById('profileEdit');
+      var editProfileButton = document.getElementById('editProfileButton');
+      var cancelButton = document.getElementById('cancelEditButton');
+      var profileForm = document.getElementById('profileForm');
+      
+      // Edit button click event
+      editProfileButton.addEventListener('click', function() {
+        // Hide view section, show edit section
+        profileView.style.display = 'none';
+        profileEdit.style.display = 'block';
+        
+        // Populate edit form with current profile details
+        document.getElementById('editName').value = document.getElementById('profileName').textContent.trim();
+        document.getElementById('editUsername').value = document.getElementById('profileUsername').textContent.trim();
+        document.getElementById('editBirthday').value = document.getElementById('profileBirthday').textContent.trim();
+        document.getElementById('editBio').value = document.getElementById('profileBio').textContent.trim();
+      });
+      
+      // Cancel button click event
+      cancelButton.addEventListener('click', function() {
+        // Show view section, hide edit section
+        profileView.style.display = 'block';
+        profileEdit.style.display = 'none';
+      });
+      
+      // Profile form submission (simulate save)
+      profileForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Here you can simulate saving the edited profile
+        // For demonstration, just alert and update view section (simulated)
+        alert('Profile updated successfully!');
+        
+        // Update view section with edited details
+        document.getElementById('profileName').textContent = document.getElementById('editName').value;
+        document.getElementById('profileUsername').textContent = document.getElementById('editUsername').value;
+        document.getElementById('profileBirthday').textContent = document.getElementById('editBirthday').value;
+        document.getElementById('profileBio').textContent = document.getElementById('editBio').value;
+        
+        // Show view section, hide edit section
+        profileView.style.display = 'block';
+        profileEdit.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>

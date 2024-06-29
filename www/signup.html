@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspira - Sign Up</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+  <div class="page-container">
+    <div class="app-header">
+      <div class="app-icon">
+        <img src="assets/app_icon.png" alt="App Icon">
+      </div>
+      <h1>INSPIRA</h1>
+    </div>
+    <form id="signupForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit">Sign Up</button>
+    </form>
+    <footer>
+      <p>&copy; 2024 Inspira. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlO5nJz7IWrV2PhsGIMeeo4GeZMiuvvIo",
+      authDomain: "inspiraapp-a69d6.firebaseapp.com",
+      projectId: "inspiraapp-a69d6",
+      storageBucket: "inspiraapp-a69d6.appspot.com",
+      messagingSenderId: "618976070346",
+      appId: "1:618976070346:web:ecec9ef9ddd57014700233",
+      measurementId: "G-TG0EEXJ5ZE"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Debugging
+    console.log("Firebase app initialized:", app.name);
+
+    // Sign up form submission handler
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      // Store additional user data (example: username) in Firestore
+      return setDoc(doc(db, 'users', user.uid), {
+        username: username,
+        email: email
+      });
+    })
+    .then(() => {
+      alert('Sign Up Successful!');
+      window.location.href = 'login.html';
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error(errorCode, errorMessage); // Log the error
+      alert('Error: ' + errorMessage);
+    });
+});
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Inspira - Write Your Quote</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <!-- Include your app icon -->
+  <link rel="icon" type="image/png" href="assets/app_icon.png">
+</head>
+<body>
+  <div class="page-container">
+    <!-- Application icon -->
+    <div class="app-icon">
+      <img src="assets/app_icon.png" alt="App Icon">
+    </div>
+    <h1>Write Your Quote</h1>
+    
+    <!-- Quote form -->
+    <form id="quoteForm" class="quote-form">
+      <div class="form-group">
+        <label for="quoteText">Quote:</label>
+        <textarea id="quoteText" name="quoteText" rows="4" placeholder="Write your quote..." required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="backgroundImage">Select Background Image:</label>
+        <select id="backgroundImage" name="backgroundImage" required>
+          <option value="">Select an image</option>
+          <option value="mountain.jpg">Mountain</option>
+          <option value="forest.jpg">Forest</option>
+          <option value="sunset.jpg">Sunset</option>
+          <option value="sea.jpg">Sea</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="button">Create Quote</button>
+      </div>
+    </form>
+
+    <!-- Back button -->
+    <button class="back-button" onclick="window.history.back();">Back</button>
+    
+    <!-- Footer section -->
+    <footer>
+      <p>&copy; 2024 Inspira. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- JavaScript for form submission -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var quoteForm = document.getElementById('quoteForm');
+
+      quoteForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var quoteText = document.getElementById('quoteText').value;
+        var selectedImage = document.getElementById('backgroundImage').value;
+
+        if (quoteText.trim() === '') {
+          alert('Please enter your quote.');
+          return;
+        }
+
+        if (selectedImage === '') {
+          alert('Please select a background image.');
+          return;
+        }
+
+        // Simulate quote creation (you can send this data to your server)
+        alert('Quote created successfully!\n\nQuote: ' + quoteText + '\nBackground Image: ' + selectedImage);
+
+        // Optionally, clear the form after submission
+        quoteForm.reset();
+      });
+    });
+  </script>
+</body>
+</html>

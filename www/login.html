@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspira - Login</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+  <div class="page-container">
+    <div class="app-header">
+      <div class="app-icon">
+        <img src="assets/app_icon.png" alt="App Icon">
+      </div>
+      <h1>INSPIRA</h1>
+    </div>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit">Log In</button>
+    </form>
+    <footer>
+      <p>&copy; 2024 Inspira. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlO5nJz7IWrV2PhsGIMeeo4GeZMiuvvIo",
+      authDomain: "inspiraapp-a69d6.firebaseapp.com",
+      projectId: "inspiraapp-a69d6",
+      storageBucket: "inspiraapp-a69d6.appspot.com",
+      messagingSenderId: "618976070346",
+      appId: "1:618976070346:web:ecec9ef9ddd57014700233",
+      measurementId: "G-TG0EEXJ5ZE"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+
+    // Debugging
+    console.log("Firebase app initialized:", app.name);
+
+    // Login form submission handler
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          alert('Login Successful!');
+          // Redirect or navigate to another page after login
+          window.location.href = 'home.html'; // Example: Redirect to dashboard after login
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert('Error: ' + errorMessage);
+        });
+    });
+  </script>
+</body>
+</html>
